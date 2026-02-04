@@ -1,0 +1,22 @@
+[2026-02-04 16:54:30] INFO: [nodemon] 3.1.11 starting `node server.js`
+[2026-02-04 16:54:31] INFO: Server Started at Port: 8000
+[2026-02-04 16:54:32] INFO: MongoDB Connected Successfully
+[2026-02-04 16:54:33] POST /api/v1/users/login - 200 OK (295.848ms)
+[2026-02-04 16:54:33] GET /api/v1/posts - 304 Not Modified (42.852ms)
+[2026-02-04 16:54:33] GET /api/v1/posts - 304 Not Modified (38.490ms)
+[2026-02-04 16:54:51] POST /api/v1/posts - 201 Created (54.197ms)
+[2026-02-04 16:54:51] GET /api/v1/posts - 200 OK (61.679ms)
+[2026-02-04 16:54:51] GET /image/posts/default-cover.jpg - 404 Not Found (0.533ms)
+[2026-02-04 16:55:00] INFO: Delete request received for Post ID: 698379db6705dcba69dc5c1d
+[2026-02-04 16:55:00] INFO: Post found - Processing image cleanup
+[2026-02-04 16:55:00] DELETE /api/v1/posts/698379db6705dcba69dc5c1d - 200 OK (62.726ms)
+[2026-02-04 16:55:00] GET /api/v1/posts - 200 OK (38.761ms)
+[2026-02-04 16:55:16] POST /api/v1/users/login - 401 Unauthorized (279.168ms)
+[2026-02-04 16:55:33] POST /api/v1/users/login - 200 OK (287.624ms)
+[2026-02-04 16:55:33] GET /api/v1/users - 304 Not Modified (42.072ms)
+[2026-02-04 16:55:33] GET /api/v1/users - 304 Not Modified (39.822ms)
+[2026-02-04 16:55:40] DELETE /api/v1/users/69836b2a26d9e8967046b8ef - 200 OK (Admin Action - 44.774ms)
+[2026-02-04 16:55:40] GET /api/v1/users - 200 OK (40.456ms)
+[2026-02-04 16:56:22] INFO: [nodemon] starting `node server.js`
+[2026-02-04 16:56:22] INFO: Server Started at Port: 8000
+[2026-02-04 16:56:23] INFO: MongoDB Connected Successfully

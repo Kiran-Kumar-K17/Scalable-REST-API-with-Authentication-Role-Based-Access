@@ -1,7 +1,9 @@
 import express from "express";
 import path from "path";
+import fs from "fs";
 import helmet from "helmet"; // Security headers
 import rateLimit from "express-rate-limit"; // Prevents DDoS
+import morgan from "morgan"; // HTTP request logger
 import { connectMongoDB } from "./MyDB.js";
 import postRoute from "./routes/post.js";
 import userRoute from "./routes/user.js";
@@ -22,8 +24,25 @@ app.use(
 const PORT = process.env.PORT || 8000;
 const DB = process.env.DATABASE_URL;
 
+// Create a write stream for logging to file
+const logStream = fs.createWriteStream(
+  path.join(process.cwd(), "server_logs.txt"),
+  { flags: "a" },
+);
+
+// Custom log format with timestamp
+const logFormat = (tokens, req, res) => {
+  const timestamp = new Date().toISOString().replace("T", " ").slice(0, 19);
+  return `[${timestamp}] ${tokens.method(req, res)} ${tokens.url(req, res)} - ${tokens.status(req, res)} (${tokens["response-time"](req, res)}ms)`;
+};
+
 // 1. CONNECT DATABASE
-connectMongoDB(DB).then(() => console.log("MongoDB Connected Successfully"));
+connectMongoDB(DB).then(() => {
+  const timestamp = new Date().toISOString().replace("T", " ").slice(0, 19);
+  const logMsg = `[${timestamp}] INFO: MongoDB Connected Successfully\n`;
+  console.log("MongoDB Connected Successfully");
+  logStream.write(logMsg);
+});
 
 // 2. GLOBAL MIDDLEWARES (Security & Parsing)
 app.use(
@@ -42,6 +61,10 @@ app.use(limiter);
 
 app.use(express.json({ limit: "10kb" })); // Prevents large payload attacks
 app.use(express.static(path.join(process.cwd(), "public"))); // Serve images
+
+// HTTP Request Logging - to console and file
+app.use(morgan(logFormat));
+app.use(morgan(logFormat, { stream: logStream }));
 
 // 3. ROUTES
 app.use("/api/v1/posts", postRoute);
@@ -67,4 +90,12 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(PORT, () => console.log(`Server Started at Port:${PORT}`));
+app.listen(PORT, () => {
+  const timestamp = new Date().toISOString().replace("T", " ").slice(0, 19);
+  const startMsg = `[${timestamp}] INFO: Server Started at Port: ${PORT}\n`;
+  console.log(`Server Started at Port:${PORT}`);
+  logStream.write(
+    `[${timestamp}] INFO: [nodemon] starting \`node server.js\`\n`,
+  );
+  logStream.write(startMsg);
+});
