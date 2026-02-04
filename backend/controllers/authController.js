@@ -66,6 +66,7 @@ async function registerUser(req, res) {
     const newUser = await User.create({
       name: req.body.name,
       email: req.body.email,
+      role: req.body.role || "user",
       password: req.body.password,
       passwordConfirm: req.body.passwordConfirm,
     });
@@ -136,9 +137,9 @@ const deleteUser = async (req, res) => {
       });
     }
 
-    res.status(204).json({
+    res.status(200).json({
       status: "success",
-      data: null, // 204 means 'No Content' after a successful delete
+      message: "User deleted successfully", // 204 means 'No Content' after a successful delete
     });
   } catch (err) {
     res.status(400).json({
