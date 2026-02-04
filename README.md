@@ -4,9 +4,11 @@
 ![Express.js](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge&logo=express&logoColor=white)
 ![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
 ![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 [![Postman](https://img.shields.io/badge/Postman-API%20Docs-orange?style=for-the-badge&logo=postman&logoColor=white)](https://postman.co/workspace/My-Workspace~fdab7c6d-792e-409f-837c-89de49038b32/request/43175015-dc10c136-626d-4c40-a2e0-32b7a87340bd?action=share&creator=43175015&ctx=documentation)
 
-A secure and scalable RESTful API for a blogging platform built with Node.js, Express, and MongoDB.
+A full-stack blogging platform with a secure RESTful API backend (Node.js, Express, MongoDB) and a modern React frontend.
 
 ## 📖 API Documentation
 
@@ -20,6 +22,16 @@ A secure and scalable RESTful API for a blogging platform built with Node.js, Ex
 - 🖼️ **Image Upload** - Cover image support with Sharp for optimization
 - 🛡️ **Security** - Helmet, rate limiting, and input validation
 - 📄 **Pagination & Filtering** - Query posts with sorting and pagination
+
+### Frontend Features
+
+- ⚛️ **React 19** - Modern React with hooks
+- ⚡ **Vite** - Lightning-fast development server and build tool
+- 🎨 **Responsive UI** - Clean and intuitive user interface
+- 🔐 **Authentication UI** - Login and signup forms with validation
+- 📝 **Post Management** - Create, edit, and delete posts with image upload
+- 🛡️ **Admin Panel** - User management for administrators
+- 💾 **Persistent Sessions** - LocalStorage-based token management
 
 ## 🚀 Getting Started
 
@@ -35,7 +47,15 @@ A secure and scalable RESTful API for a blogging platform built with Node.js, Ex
 
    ```bash
    git clone https://github.com/Kiran-Kumar-K17/Scalable-REST-API-with-Authentication-Role-Based-Access.git
-   cd calable-REST-API-with-Authentication-Role-Based-Access/backend
+   cd calable-REST-API-with-Authentication-Role-Based-Access
+   ```
+
+### Backend Setup
+
+1. **Navigate to backend directory**
+
+   ```bash
+   cd backend
    ```
 
 2. **Install dependencies**
@@ -55,7 +75,7 @@ A secure and scalable RESTful API for a blogging platform built with Node.js, Ex
    JWT_EXPIRES_IN=7d
    ```
 
-4. **Start the server**
+4. **Start the backend server**
 
    ```bash
    # Development mode
@@ -66,6 +86,36 @@ A secure and scalable RESTful API for a blogging platform built with Node.js, Ex
    ```
 
 The API will be running at `http://localhost:8000`
+
+### Frontend Setup
+
+1. **Navigate to frontend directory** (from project root)
+
+   ```bash
+   cd frontend
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   npm install
+   ```
+
+3. **Start the development server**
+
+   ```bash
+   npm run dev
+   ```
+
+The frontend will be running at `http://localhost:5173`
+
+### Build for Production
+
+```bash
+# In the frontend directory
+npm run build
+npm run preview  # Preview production build
+```
 
 ## 📚 API Documentation
 
@@ -128,24 +178,40 @@ curl -X POST http://localhost:8000/api/v1/posts \
 ## 📁 Project Structure
 
 ```
-backend/
-├── controllers/
-│   ├── authController.js    # Authentication logic
-│   ├── post.js              # Post CRUD operations
-│   └── postController.js    # Image upload handling
-├── models/
-│   ├── user.js              # User schema
-│   └── post.js              # Post schema
-├── routes/
-│   ├── user.js              # User routes
-│   └── post.js              # Post routes
-├── utils/
-│   └── asyncHandler.js      # Async error wrapper
-├── public/
-│   └── image/posts/         # Uploaded images
-├── server.js                # Entry point
-├── MyDB.js                  # Database connection
-└── package.json
+├── backend/
+│   ├── controllers/
+│   │   ├── authController.js    # Authentication logic
+│   │   ├── post.js              # Post CRUD operations
+│   │   └── postController.js    # Image upload handling
+│   ├── models/
+│   │   ├── user.js              # User schema
+│   │   └── post.js              # Post schema
+│   ├── routes/
+│   │   ├── user.js              # User routes
+│   │   └── post.js              # Post routes
+│   ├── utils/
+│   │   └── asyncHandler.js      # Async error wrapper
+│   ├── public/
+│   │   └── image/posts/         # Uploaded images
+│   ├── server.js                # Entry point
+│   ├── MyDB.js                  # Database connection
+│   └── package.json
+│
+└── frontend/
+    ├── src/
+    │   ├── components/
+    │   │   ├── AdminPanel.jsx   # Admin user management
+    │   │   ├── Auth.jsx         # Login/Signup forms
+    │   │   ├── Message.jsx      # Toast notifications
+    │   │   └── Posts.jsx        # Post listing & CRUD UI
+    │   ├── App.jsx              # Main application component
+    │   ├── App.css              # Application styles
+    │   ├── main.jsx             # React entry point
+    │   └── index.css            # Global styles
+    ├── public/                  # Static assets
+    ├── index.html               # HTML template
+    ├── vite.config.js           # Vite configuration
+    └── package.json
 ```
 
 ## 🛡️ Security Features
@@ -185,5 +251,26 @@ backend/
 
 Import the included Postman collection (`postman_collection.json`) to test all endpoints.
 
+## 🖥️ Frontend Components
 
-Made with ❤️ using Node.js and Express
+### Auth Component
+
+- **Login Form** - Email and password authentication
+- **Signup Form** - User registration with name, email, password, and password confirmation
+- **Form Toggle** - Switch between login and signup modes
+
+### Posts Component
+
+- **Post List** - View all blog posts with pagination
+- **Create Post** - Form with title, content, category, tags, and cover image upload
+- **Edit Post** - Modify existing posts (owners only)
+- **Delete Post** - Remove posts with confirmation dialog
+- **Refresh** - Reload posts from the API
+
+### Admin Panel
+
+- **User List** - View all registered users in a table
+- **User Management** - Delete non-admin users
+- **Role Display** - Visual badges for user roles
+
+Made with ❤️ using Node.js, Express, React, and Vite
