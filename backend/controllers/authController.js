@@ -116,10 +116,16 @@ async function loginUser(req, res) {
     // 4. If everything is OK, send a fresh token
     const token = signToken(user._id);
 
+    // Hide password from output
+    user.password = undefined;
+
     res.status(200).json({
       success: true,
       token,
       message: "Logged in successfully!",
+      data: {
+        user,
+      },
     });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
@@ -148,4 +154,28 @@ const deleteUser = async (req, res) => {
     });
   }
 };
-export { registerUser, loginUser, protect, deleteUser, restrictTo };
+
+const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find().select("name email role");
+    res.status(200).json({
+      success: true,
+      results: users.length,
+      data: users,
+    });
+  } catch (err) {
+    res.status(400).json({
+      success: false,
+      message: err.message,
+    });
+  }
+};
+
+export {
+  registerUser,
+  loginUser,
+  protect,
+  deleteUser,
+  restrictTo,
+  getAllUsers,
+};
